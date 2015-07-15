@@ -9,8 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <CLLocationManagerDelegate>
+@property (nonatomic, strong) CLLocationManager *locationManager;
+
 @property(nonatomic, strong) IBOutlet MKMapView *mkMap;;
 @property(nonatomic, strong) IBOutlet UIButton *coffeeSearch;
 @property(nonatomic, strong) IBOutlet UILabel *locationServicesStatus;
+
+-(IBAction)coffeeSearchPressed;
 @end
