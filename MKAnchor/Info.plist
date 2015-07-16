@@ -38,5 +38,7 @@
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>To test anchor based on user location.</string>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>

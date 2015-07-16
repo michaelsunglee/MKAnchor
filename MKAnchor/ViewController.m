@@ -18,6 +18,7 @@
 @implementation ViewController
 @synthesize mkMap;
 @synthesize locationManager;
+@synthesize locationServicesStatus;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,25 +39,36 @@
     // Dispose of any resources that can be recreated.
 }
 
-
 -(IBAction)coffeeSearchPressed{
     MKLocalSearchRequest *request = [[MKLocalSearchRequest alloc] init];
-    request.naturalLanguageQuery = @"Restuarants";
+    request.naturalLanguageQuery = @"Coffee";
     request.region = mkMap.region;
     MKLocalSearch *search = [[MKLocalSearch alloc] initWithRequest:request];
     [search startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error){
         NSLog(@"MapItems: %@", response.mapItems);
         
         //adding to results to map
-//        for(MKMapItem *result in response.mapItems){
-//            result.place
-//        }
+        for(MKMapItem *result in response.mapItems){
+            MKPointAnnotation *annot = [[MKPointAnnotation alloc] init];
+            annot.coordinate = result.placemark.coordinate;
+            annot.title = result.name;
+            [mkMap addAnnotation:annot];
+            NSLog(@"annotation Title is: %@", annot.title);
+        }
     }];
-    
-
 }
 
 //locationManger delegate method
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+    [self locationServicesLabelOn];
 }
+
+-(void)locationServicesLabelOn{
+    locationServicesStatus.text = @"Location Service: ON";
+}
+
+-(void)locationServicesLabelOff{
+    locationServicesStatus.text = @"Location Service: OFF";
+}
+
 @end
